@@ -68,8 +68,7 @@ export const Register = () => {
         document.querySelector("#loginMesageSuccess").innerHTML = ``;
       } else {
         setCheck({ ...check, verify: true });
-        document.querySelector("#loginMesageSuccess").innerHTML =
-          `Local development OTP: ${LOCAL_OTP}`;
+        document.querySelector("#loginMesageSuccess").innerHTML = "";
         document.querySelector("#loginMesageError").innerHTML = "";
       }
       //

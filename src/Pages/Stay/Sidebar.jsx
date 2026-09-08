@@ -1,84 +1,60 @@
-import React from "react";
-import { useSearchParams } from "react-router-dom";
-import { fetchingHotels } from "../../Redux/StayReducer/action";
-import { useDispatch } from "react-redux";
 import PriceSlider from "./PriceSlider";
 
-export const Sidebar = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [order,setOrder] = React.useState("asc");
-  const [sort,setSort] = React.useState("");
-  const dispatch = useDispatch();
+export const Sidebar = ({ onSortChange, onPriceRangeChange }) => {
 
 const handlePriceChange = (e) => {
-  const selectedOrder = e.target.value;
-  const selectedSort = "price";
-  setOrder(selectedOrder);
-  setSort(selectedSort);
+  onSortChange({ field: "price", direction: e.target.value });
 };
  
   const handleRatingChange = (e) => {
-    // setOrder(e.target.value);
-    const selectedOrder = e.target.value;
-    const selectedSort = "rating";
-    setOrder(selectedOrder);
-    setSort(selectedSort);
+    onSortChange({ field: "rating", direction: e.target.value });
   };
-
-  React.useEffect(() => {
-    let params = {};
-    sort && (params["_sort"] = sort);
-    order && (params["_order"] = order);
-    setSearchParams(params);
-
-    dispatch(fetchingHotels(sort, order,));
-  }, [sort, order]);
 
   return (
     <div>
-      <h3>Filter By Price</h3>
+      <h3>Sort by price</h3>
       <div onChange={handlePriceChange} >
         <input
           type="radio"
           name="price"
           value={"asc"}
-         
+          id="price-low"
         />
-        <label>Low to High</label>
+        <label htmlFor="price-low">Low to High</label>
         <br />
         <input
           type="radio"
           name="price"
           value={"desc"}
-          
+          id="price-high"
         />
-        <label>High to Low</label>
+        <label htmlFor="price-high">High to Low</label>
       </div>
       <br />
       <br />
-      <h3>Filter By Rating</h3>
+      <h3>Sort by rating</h3>
       <div onChange={handleRatingChange}>
         <input
           type="radio"
           name="rating"
           value={"asc"}
-         
+          id="rating-low"
         />
-        <label>Low to High</label>
+        <label htmlFor="rating-low">Low to High</label>
         <br />
         <input
           type="radio"
           name="rating"
           value={"desc"}
-          
+          id="rating-high"
         />
-        <label>High to Low</label>
+        <label htmlFor="rating-high">High to Low</label>
       </div>
       <br/>
       <br/>
       <br/>
       <div>
-        <PriceSlider />
+        <PriceSlider onChange={onPriceRangeChange} />
       </div>
     </div>
   );

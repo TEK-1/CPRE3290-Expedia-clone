@@ -1,23 +1,23 @@
 const data = [
     {
         id: 0,
-        name: 'Kolkota'
+        name: 'Des Moines'
       },
       {
         id: 1,
-        name: 'Mumbai'
+        name: 'Chicago'
       },
       {
         id: 2,
-        name: 'Pune'
+        name: 'Minneapolis'
       },
       {
         id: 3,
-        name: 'Haidrabad'
+        name: 'San Francisco'
       },
       {
         id: 4,
-        name: 'Bhubaneswar'
+        name: 'Boston'
       }
 ]
 

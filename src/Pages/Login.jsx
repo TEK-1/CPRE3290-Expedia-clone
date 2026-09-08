@@ -42,8 +42,7 @@ export const Login = () => {
     if (number.length === 10) {
       if (exist) {
         setCheck({ ...check, verify: true });
-        document.querySelector("#loginMesageSuccess").innerHTML =
-          `Local development OTP: ${LOCAL_OTP}`;
+        document.querySelector("#loginMesageSuccess").innerHTML = "";
         document.querySelector("#loginMesageError").innerHTML = "";
       } else {
         document.querySelector("#loginMesageSuccess").innerHTML = ``;

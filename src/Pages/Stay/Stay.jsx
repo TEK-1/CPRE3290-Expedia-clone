@@ -1,36 +1,23 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import data from "./city";
 import ShowCalender from "./ShowCalender";
 import { Button,} from "@chakra-ui/react";
 import styles from "./Stay.module.css";
-import {Link} from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { selectCity } from "../../Redux/StayReducer/action";
+import { useNavigate } from "react-router-dom";
 
 function Stay() {
   const [selectedCity, setSelectedCity] = useState("");
-  const dispatch = useDispatch();
-  const handleOnSearch = (string, results) => {
-    // onSearch will have as the first callback parameter
-    // the string searched and for the second the results.
-    console.log(string, results);
-  };
-
-  const handleOnHover = (result) => {
-    // the item hovered
-    console.log(result);
-  };
+  const navigate = useNavigate();
 
   const handleOnSelect = (data) => {
-    // the item selected
-    console.log(data.name);
     setSelectedCity(data.name);
-    dispatch(selectCity(data.name));
   };
 
-  const handleOnFocus = () => {
-    console.log("Focused");
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (selectedCity) params.set("destination", selectedCity);
+    navigate({ pathname: "/stay", search: params.toString() });
   };
 
   const formatResult = (data) => {
@@ -48,13 +35,10 @@ function Stay() {
         <div style={{ width: 400 ,}}>
           <ReactSearchAutocomplete
             items={data}
-            onSearch={handleOnSearch}
-            onHover={handleOnHover}
             onSelect={handleOnSelect}
-            onFocus={handleOnFocus}
             formatResult={formatResult}
             showIcon={false}
-            placeholder={"Going to"}
+            placeholder={"Search a neighborhood"}
             styling={{
               height: "44px",
               border: "1px solid #dfe1e5",
@@ -80,10 +64,9 @@ function Stay() {
             size="lg"
             className={styles["SearchBtn1"]}
             style={{margin:"auto",}}
-            
+            onClick={handleSearch}
           >
-            <Link to={{ pathname: '/stay' }}>Search</Link>
-          
+            Search
           </Button >
        
       </div>

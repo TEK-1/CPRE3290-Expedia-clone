@@ -13,7 +13,7 @@ const MainInputBox = () => {
                         <Tab _selected={{ color: 'blue.500'}} fontWeight='semibold' >Stays</Tab>
                         <Tab _selected={{ color: 'blue.500'}} fontWeight='semibold'>Flight</Tab>
                         <Tab _selected={{ color: 'blue.500'}} fontWeight='semibold'>Cars</Tab>
-                        <Tab _selected={{ color: 'blue.500'}} fontWeight='semibold'>Things to do</Tab>
+                        <Tab _selected={{ color: 'blue.500'}} fontWeight='semibold'>Excursions</Tab>
                         <Tab _selected={{ color: 'blue.500'}} fontWeight='semibold'>Packages</Tab>
                     </TabList>
                 </Center>
