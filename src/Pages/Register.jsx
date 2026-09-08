@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import firebase_app from "../01_firebase/config_firebase";
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { fetch_users, userRigister } from "../Redux/Authantication/auth.action";
-import Navbar from "../Components/Navbar";
 
-const auth = getAuth(firebase_app);
+const LOCAL_OTP = "123456";
 const state = {
   number: "",
   otp: "",
@@ -45,7 +38,7 @@ export const Register = () => {
   }
 
   //  capture
-  const handleRegisterUser = () => {
+  const handleRegisterUser = async () => {
     let newObj = {
       number,
       user_name,
@@ -55,57 +48,29 @@ export const Register = () => {
       gender: "",
       marital_status: null,
     };
-    dispatch(userRigister(newObj));
-    setCheck(state);
-    window.location = "/login";
+    try {
+      await dispatch(userRigister(newObj));
+      setCheck(state);
+      navigate("/login", { replace: true });
+    } catch (error) {
+      document.querySelector("#loginMesageSuccess").innerHTML = "";
+      document.querySelector("#loginMesageError").innerHTML =
+        "Could not create your account. Make sure the local API is running and try again.";
+    }
   };
-
-  // oonCapture
-  function onCapture() {
-    window.recaptchaVerifier = new RecaptchaVerifier(
-      "recaptcha-container",
-      {
-        size: "invisible",
-        callback: (response) => {
-          handleVerifyNumber();
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          // ...
-        },
-      },
-      auth
-    );
-  }
 
   //   Verify button
   function handleVerifyNumber() {
-    document.querySelector("#nextButton").innerText = "Please wait...";
-    onCapture();
-    const phoneNumber = `+91${number}`;
-    const appVerifier = window.recaptchaVerifier;
     if (number.length === 10) {
       if (exist) {
         document.querySelector("#loginMesageError").innerHTML =
           "User Alredy exist";
         document.querySelector("#loginMesageSuccess").innerHTML = ``;
       } else {
-        signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-          .then((confirmationResult) => {
-            // SMS sent. Prompt user to type the code from the message, then sign the
-            // user in with confirmationResult.confirm(code).
-            window.confirmationResult = confirmationResult;
-            setCheck({ ...check, verify: true });
-            document.querySelector(
-              "#loginMesageSuccess"
-            ).innerHTML = `Otp Send To ${number} !`;
-            document.querySelector("#loginMesageError").innerHTML = "";
-            document.querySelector("#nextButton").style.display = "none";
-            // ...
-          })
-          .catch((error) => {
-            // Error; SMS not sent
-            // document.querySelector("#nextButton").innerText = 'Server Error'
-            // ...
-          });
+        setCheck({ ...check, verify: true });
+        document.querySelector("#loginMesageSuccess").innerHTML =
+          `Local development OTP: ${LOCAL_OTP}`;
+        document.querySelector("#loginMesageError").innerHTML = "";
       }
       //
     } else {
@@ -117,26 +82,17 @@ export const Register = () => {
 
   // if the code is verifyed
   function verifyCode() {
-    window.confirmationResult
-      .confirm(otp)
-      .then((result) => {
-        // User signed in successfully.
-        const user = result.user;
-        setCheck({ ...check, otpVerify: true });
-        document.querySelector(
-          "#loginMesageSuccess"
-        ).innerHTML = `Verifyed Successful`;
-        document.querySelector("#loginMesageError").innerHTML = "";
-        document.querySelector("#loginNumber").style.display = "none";
-        document.querySelector("#loginOtp").style.display = "none";
-        // ...
-      })
-      .catch((error) => {
-        // User couldn't sign in (bad verification code?)
-        document.querySelector("#loginMesageSuccess").innerHTML = ``;
-        document.querySelector("#loginMesageError").innerHTML = "Invalid OTP";
-        // ...
-      });
+    if (otp === LOCAL_OTP) {
+      setCheck({ ...check, otpVerify: true });
+      document.querySelector("#loginMesageSuccess").innerHTML =
+        "Verified successfully";
+      document.querySelector("#loginMesageError").innerHTML = "";
+      document.querySelector("#loginNumber").style.display = "none";
+      document.querySelector("#loginOtp").style.display = "none";
+    } else {
+      document.querySelector("#loginMesageSuccess").innerHTML = "";
+      document.querySelector("#loginMesageError").innerHTML = "Invalid OTP";
+    }
   }
 
   // setting the typed value to the input state
@@ -147,12 +103,11 @@ export const Register = () => {
 
   useEffect(() => {
     dispatch(fetch_users);
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
       <div className="mainLogin">
-        <div id="recaptcha-container"></div>
         <div className="loginBx">
         <div className="logoImgdivReg"><img className="imglogoReg" src="https://i.postimg.cc/QxksRNkQ/expedio-Logo.jpg':'https://i.postimg.cc/fRx4D7QH/logo3.png" alt="" /></div>
 
@@ -174,11 +129,11 @@ export const Register = () => {
                 placeholder="Number"
               />
               <button
-                disabled={verify}
+                disabled={verify || isLoading}
                 onClick={handleVerifyNumber}
                 id="nextButton"
               >
-                Next
+                {isLoading ? "Loading..." : "Next"}
               </button>
             </span>
           </div>
@@ -239,8 +194,8 @@ export const Register = () => {
             <h6>By signing in, I agree to the Expedia <span> Terms and Conditions</span>, <span>Privacy Statement</span> and <span>Expedia Rewards Terms and Conditions</span>.</h6>
           </div>
           <br />
-          <h3 id="loginMesageError"></h3>
-          <h3 id="loginMesageSuccess"></h3>
+          <p id="loginMesageError" role="alert"></p>
+          <p id="loginMesageSuccess" aria-live="polite"></p>
         </div>
       </div>
     </>

@@ -11,7 +11,6 @@
 - React
 - Redux
 - Json-Server
-- firebase
 
 
 <h2>Dependency</h2>
@@ -21,7 +20,6 @@
 - react-redux
 - redux thunk
 - chakraUI
-- firebase
 - font-awesome
 - json-server
 - react-router-dom
@@ -30,7 +28,7 @@
 <h2>Features</h2>
 
 - Landing Page
-- Login and signup via firebase (OTP).
+- Local login and signup via JSON Server with a development OTP.
 - View details of flights, hotels.
 - Search for flights, hotels, and holiday packages
 - Sorting & Filtering and Seraching
@@ -51,14 +49,22 @@ cd hesitant-river-6235
 . Install the dependencies:
 npm install
 
-. Start the server:
-npm start
-
-. Start JSON- Server:
+. Start the local JSON database in one terminal:
+```bash
 npm run server
+```
+
+. Start the React app in a second terminal:
+```bash
+npm start
+```
 
 . Open the website in your browser:
 http://localhost:3000/
+
+<h3>Local authentication</h3>
+
+<p>This local deployment does not send SMS messages or require Firebase billing. User accounts are saved in <code>db.json</code> by JSON Server. For both sign-in and registration, enter the development OTP <code>123456</code>. This OTP is intentionally only for local/demo use and must be replaced by real server-side authentication before a public deployment.</p>
 
 
 <h2>Deployment</h2>
@@ -85,5 +91,3 @@ This is the Flight Page:-
 
 This is the Admin Page:-
 ![Admin](https://user-images.githubusercontent.com/112754519/231046415-c8c2f14c-f586-4da0-884a-992bc18b0e12.PNG)
-
-

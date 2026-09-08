@@ -42,15 +42,14 @@ export const handlelogout_user = () => {
 
 export const userRigister = (userData) => async (dispatch) => {
   dispatch(register_request());
-  let res = await axios
-    .post(`http://localhost:8080/users`, userData)
-    .then((res) => {
-      dispatch(register_success(res.data));
-      // console.log(res.data)
-    })
-    .catch((err) => {
-      dispatch(register_error());
-    });
+  try {
+    const res = await axios.post(`http://localhost:8080/users`, userData);
+    dispatch(register_success(res.data));
+    return res.data;
+  } catch (err) {
+    dispatch(register_error());
+    throw err;
+  }
 };
 
 // get users
@@ -71,11 +70,11 @@ export const fetch_users = (dispatch) => {
 
 export const login_user = (loginData) => (dispatch) => {
   dispatch(login_success(loginData));
-  // localStorage.setItem("MkuserData", JSON.stringify(loginData));
-  // localStorage.setItem("MkisAuth", JSON.stringify(true));
+  localStorage.setItem("MkuserData", JSON.stringify(loginData));
+  localStorage.setItem("MkisAuth", JSON.stringify(true));
 };
 
-export const logout_user = (dispatch) => {
+export const logout_user = () => (dispatch) => {
   dispatch(handlelogout_user());
   localStorage.setItem("MkuserData", JSON.stringify({}));
   localStorage.setItem("MkisAuth", JSON.stringify(false));
