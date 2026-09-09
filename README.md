@@ -147,4 +147,4 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on submitting issues and
 
 ## License
 
-This project is provided for educational purposes as part of CPRE 3290. See the original [Expedia-clone](https://github.com/kumkumdutta/Expedia-clone) repository for upstream licensing context.
+This project is provided for educational purposes as part of Iowa State University of Science and Technology's CPRE 3290 course. See the original [Expedia-clone](https://github.com/kumkumdutta/Expedia-clone) repository for upstream licensing context.
