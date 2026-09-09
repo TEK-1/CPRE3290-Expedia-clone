@@ -1,5 +1,7 @@
 # OdysCy
 
+<img width="1024" height="1024" alt="odyscy-logo" src="https://github.com/user-attachments/assets/0a9088de-ce48-4433-ac7b-f8f5dbadfc98" />
+
 OdysCy is a travel booking web application - a clone of Expedia.com - where users can search and book flights and hotels, explore destinations, and manage bookings through an admin panel. Built with React, Redux, Chakra UI, and Firebase Authentication, with a mock REST API layer for flight and hotel data.
 
 This project is forked and adapted from the original [Expedia-clone](https://github.com/kumkumdutta/Expedia-clone) by Kumkum Dutta et al., with authentication, search flow, pricing, and branding changes described below.
