@@ -48,7 +48,8 @@ export const addFlight = (payload) => (dispatch) => {
 
 //
 export const fetchFlightProducts = (limit) => (dispatch) => {
-  dispatch(flightRequest());
+  
+/*  ispatch(flightRequest());
   axios
     .get(`http://localhost:8080/flight?_limit=${limit}`)   //https://makemytrip-api-data.onrender.com/flight?_limit=${limit}
     .then((res) => {
@@ -56,7 +57,7 @@ export const fetchFlightProducts = (limit) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(flightFailure());
-    });
+    }); */
 };
 
 export const DeleteFlightProducts = (deleteId) => async (dispatch) => {

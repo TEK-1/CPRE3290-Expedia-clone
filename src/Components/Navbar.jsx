@@ -50,7 +50,7 @@ import {
     
      <Box>
         <Flex
-          bg={useColorModeValue('white', 'gray.800')}
+          bg={useColorModeValue('black', 'gray.800')}
           color={useColorModeValue('gray.600', 'white')}
           minH={'60px'}
           justifyContent={'space-between'}
@@ -59,7 +59,7 @@ import {
           pr={{sm:'80px'}}
           borderBottom={1}
           borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.900')}
+          borderColor="gray.900"
           align={'center'}>
           <Flex
             flex={{ base: 1, md: 'auto' }}
@@ -68,7 +68,7 @@ import {
           </Flex>
           <RouterLink to="/">
           <Flex flex={{ base: 100 }} justify={{ base: 'space-between', md: 'start' }}>
-            <Image src={myColor=='light'?'https://i.postimg.cc/QxksRNkQ/expedio-Logo.jpg':'https://i.postimg.cc/fRx4D7QH/logo3.png'}  alt='logo' width={{base:'350px',sm:'18%'}} />
+          <Image src='/odyscy-logo.png' alt='OdysCy logo' width={{base:'350px',sm:'8%'}} />
   
             <Flex display={{ base: 'none', md: 'flex' }} ml={6}>
               <DesktopNav />
@@ -139,8 +139,8 @@ import {
   }
   
   const DesktopNav = () => {
-    const linkColor = useColorModeValue('gray.600', 'gray.200');
-    const linkHoverColor = useColorModeValue('gray.800', 'white');
+    const linkColor = 'white';
+    const linkHoverColor = 'gray.300';
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   
     return (

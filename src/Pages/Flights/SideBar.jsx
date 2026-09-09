@@ -12,8 +12,15 @@ import {
 import FlightList from "./FlightList";
 import { useState } from "react";
 
-const SideBar = () => {
-  const [priceValue, setPriceValue] = useState(8);
+const SideBar = ({ origin, destination, date }) => {
+  const priceRanges = {
+    "200": 0,
+    "400": 200,
+    "600": 400,
+    "1000": 600,
+  };
+
+  const [priceValue, setPriceValue] = useState("1000"); // was useState(8)
   const [classes, setClasses] = useState("");
   const [page, setPage] = useState(1);
   const [Packaging, setpackaging] = useState("");
@@ -49,19 +56,19 @@ const SideBar = () => {
             Sorting & Filtering
           </h1>
 
-          <Box>
-            <Heading as="h5" size="sm" m="3">
-              Price Per Trip
-            </Heading>
-            <RadioGroup onChange={setPriceValue} value={priceValue}>
-              <Stack direction="column">
-                <Radio value="5">₹ 4000 - ₹ 5000</Radio>
-                <Radio value="6">₹ 5000 - ₹ 6000</Radio>
-                <Radio value="7">₹ 6000 - ₹ 7000</Radio>
-                <Radio value="8">₹ 7000 - ₹ 8000</Radio>
-              </Stack>
-            </RadioGroup>
-          </Box>
+        <Box>
+          <Heading as="h5" size="sm" m="3">
+            Price Per Trip
+          </Heading>
+          <RadioGroup onChange={setPriceValue} value={priceValue}>
+            <Stack direction="column">
+            <Radio value="200">$0 - $200</Radio>
+            <Radio value="400">$200 - $400</Radio>
+            <Radio value="600">$400 - $600</Radio>
+            <Radio value="1000">$600 - $1000</Radio>
+            </Stack>
+          </RadioGroup>
+        </Box>
 
           <Box>
             <Heading as="h5" size="sm" m="3">
@@ -127,7 +134,12 @@ const SideBar = () => {
               </Stack>
           {/* Pagination Part UI End */}
 
-          <FlightList page={page} priceValue={priceValue} />
+              <FlightList
+      origin={origin}
+      destination={destination}
+      date={date}
+      priceValue={priceValue}
+    />
         </Box>
       </Box>
   );
