@@ -13,7 +13,7 @@ Thanks for your interest in contributing! Here's how to get started.
 
 ## Making Changes
 
-- Keep changes focused — one feature or fix per branch/pull request.
+- Keep changes focused: one feature or fix per branch/pull request.
 - Follow the existing code style (functional React components, Redux for global state).
 - Test your changes locally (`npm start` + `npm run server`) before opening a pull request.
 - Write clear commit messages describing what changed and why.
