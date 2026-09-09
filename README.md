@@ -62,11 +62,12 @@ npm install json-server@0.17.4 --save-dev
 
 ### 3. Set up your own Firebase project
 
-The app uses Firebase Authentication with phone number + OTP verification. You need your own Firebase project — do not reuse credentials from the original repo.
+The app uses Firebase Authentication with phone number + OTP verification. You need your own Firebase project. 
+Do NOT reuse credentials from the original repo.
 
 1. Go to the [Firebase Console](https://console.firebase.google.com) → **Add project**.
 2. Go to **Build → Authentication → Get Started → Sign-in method** → enable **Phone**.
-3. Under the same Phone provider settings, add a **test phone number** (e.g., `+1 650-555-1234` with code `123456`) — this lets you test OTP login without sending real SMS, and avoids Firebase's SMS region policy blocking untested countries.
+3. Under the same Phone provider settings, add a **test phone number** (e.g., `+1 650-555-1234` with code `123456`) this lets you test OTP login without sending real SMS, and avoids Firebase's SMS region policy blocking untested countries.
 4. Go to **Project Settings → General → Your apps → Add app → Web app**, and copy the generated `firebaseConfig` object.
 5. Open `src/01_firebase/config_firebase.js` and replace the existing `firebaseConfig` values with your own.
 
